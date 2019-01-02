@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SolApp</string>
+    <string name="today">today</string>
+    <string name="tomorrow">tomorrow</string>
+</resources>
