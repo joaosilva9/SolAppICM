@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             dates.add(df.format(parsedResponse.getWeatherForecast()[i].getDate()));
                         }
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, dates);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, dates);
                         spinner.setAdapter(adapter);
 
                         setWeatherEntries(entries);

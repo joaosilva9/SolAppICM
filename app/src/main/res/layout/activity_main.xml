@@ -22,9 +22,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:dropDownSelector="@color/colorGreen"
         />
-    <!--
-    android:choiceMode="singleChoice"
-    -->
 
     <TextView
         android:id="@+id/textView4"
