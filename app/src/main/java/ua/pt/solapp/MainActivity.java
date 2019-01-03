@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        
+
     }
 
     private void callRemoteWeatherAndCreateSimpleWeatherEntryObjects(final CityViewModel cityViewModel, final int idLocal,
