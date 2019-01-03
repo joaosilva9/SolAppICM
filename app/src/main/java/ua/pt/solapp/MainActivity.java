@@ -19,15 +19,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kosalgeek.android.caching.FileCacher;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -38,12 +43,22 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> globalIds = new ArrayList<>();
     private ArrayList<Weather> weathers = new ArrayList<>();
     private int globalId = 1;
+    private int cacheSize = 10 * 1024 * 1024; // 10 MB
+    private Cache cache = new Cache(getCacheDir(), cacheSize);
+
+    private OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .cache(cache)
+            .build();
+
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiService.BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     private ApiService apiService = retrofit.create(ApiService.class);
     private int code = 200;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        
-
     }
+
+
 
     private void callRemoteWeatherAndCreateSimpleWeatherEntryObjects(final CityViewModel cityViewModel, final int idLocal,
                                                                      final Context context, final Spinner spinner){
