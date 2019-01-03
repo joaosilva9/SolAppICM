@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                                         cityViewModel.insert(parsedResponse.getCityForecast()[i]);
                                     }
                                 }
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, locals);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, locals);
                                 spinner.setAdapter(adapter);
                                 setGlobalIds(ids);
                             }
