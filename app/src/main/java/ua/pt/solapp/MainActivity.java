@@ -13,25 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.kosalgeek.android.caching.FileCacher;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,19 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> globalIds = new ArrayList<>();
     private ArrayList<Weather> weathers = new ArrayList<>();
     private int globalId = 1;
-    private int cacheSize = 10 * 1024 * 1024; // 10 MB
-    private Cache cache = new Cache(getCacheDir(), cacheSize);
 
-    private OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .cache(cache)
-            .build();
 
-    private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(ApiService.BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    private ApiService apiService = retrofit.create(ApiService.class);
+    private static Retrofit retrofit;
+    private static ApiService apiService;
     private int code = 200;
 
 
@@ -64,7 +40,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageView imageView3 = findViewById(R.id.imageView3);
+        Context mContext = getApplicationContext();
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        Cache cache = new Cache(this.getCacheDir(), cacheSize);
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .cache(cache)
+                .build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(ApiService.BASE_URL)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
         final CityViewModel cityViewModel = ViewModelProviders.of(this).get(CityViewModel.class);
 
         Spinner spinner = findViewById(R.id.spinner);
@@ -138,10 +129,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshApp(MainActivity.this);
+            }
+        });
 
     }
 
-
+    public void refreshApp(AppCompatActivity appCompatActivity){
+        appCompatActivity.recreate();
+        Toast.makeText(appCompatActivity, "Refresh feito", Toast.LENGTH_SHORT).show();
+    }
 
     private void callRemoteWeatherAndCreateSimpleWeatherEntryObjects(final CityViewModel cityViewModel, final int idLocal,
                                                                      final Context context, final Spinner spinner){
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         weatherInfoCall.enqueue(new Callback<WeatherInfo>() {
             @Override
             public void onResponse(Call<WeatherInfo> call, retrofit2.Response<WeatherInfo> response) {
+
                 int codeResponse = response.code();
                 setCode(codeResponse);
                 if (codeResponse == 200) {
@@ -180,7 +181,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<WeatherInfo> call, Throwable t) {
+                TextView textView8 = findViewById(R.id.textView8);
+                TextView textView9 = findViewById(R.id.textView9);
+                TextView textView10 = findViewById(R.id.textView10);
+                TextView textView12 = findViewById(R.id.textView12);
+                ImageView imageView = findViewById(R.id.imageView);
 
+                textView8.setText("Não disponível");
+                textView9.setText("Não disponível");
+                textView10.setText("Não disponível");
+                textView12.setText("Não disponível");
+                imageView.setImageDrawable(getDrawable(R.drawable.ic_info_outline_black_24dp));
+                Toast.makeText(getApplicationContext(), "Não foi possível atualizar o tempo", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -305,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
         ok.enqueue(new Callback<DistrictInfo>() {
             @Override
             public void onResponse(Call<DistrictInfo> call, retrofit2.Response<DistrictInfo> response) {
+
                 ArrayList<String> locals = new ArrayList<>();
                 ArrayList<Integer> ids = new ArrayList<>();
                 ArrayList<CityEntry> cityEntries;
