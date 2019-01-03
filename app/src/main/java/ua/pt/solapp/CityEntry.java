@@ -22,6 +22,9 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Room;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Defines the schema of a table in {@link Room} for a single weather
  * forecast. The date is used as an {@link Index} so that its uniqueness can be ensured. Indexes
@@ -35,9 +38,21 @@ public class CityEntry {
      */
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @SerializedName("globalIdLocal")
+    @Expose
     private int globalIdLocal;
+
+    @SerializedName("latitude")
+    @Expose
     private String latitude;
+
+    @SerializedName("local")
+    @Expose
     private String local;
+
+    @SerializedName("longitude")
+    @Expose
     private String longitude;
 
     /**
