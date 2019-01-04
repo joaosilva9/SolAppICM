@@ -16,7 +16,7 @@ public abstract class MyDatabase extends RoomDatabase {
 
     public static MyDatabase getDatabase(final Context context){
         if (instance==null){
-            synchronized (CityDatabase.class){
+            synchronized (MyDatabase.class){
                 if (instance==null){
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                             MyDatabase.class, "database").build();

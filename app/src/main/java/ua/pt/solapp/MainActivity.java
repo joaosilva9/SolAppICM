@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -134,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**mViewModel.getAllCities().observe(this, cityEntries -> {
+        mViewModel.getAllCities().observe(this, cityEntries -> {
             if (cityEntries!= null){
                 Log.w("WARNING", cityEntries.get(0).getLocal());
             }
-        });**/
+        });
 
     }
 
