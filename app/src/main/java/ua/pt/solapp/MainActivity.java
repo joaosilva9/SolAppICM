@@ -154,16 +154,10 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.paginaInicial:
-                if (!this.toString().contains(MapActivity.class.getName())){
-                    Intent intent = new Intent(this, MapActivity.class);
-                    startActivity(intent);
-                }
                 return true;
             case R.id.mapView:
-                if (!this.toString().contains(MapActivity.class.getName())){
-                    Intent intent = new Intent(this, MapActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

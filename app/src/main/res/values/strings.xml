@@ -2,4 +2,5 @@
     <string name="app_name">SolApp</string>
     <string name="today">today</string>
     <string name="tomorrow">tomorrow</string>
+    <string name="access_token">pk.eyJ1Ijoiam9hb3NpbHZhOSIsImEiOiJjanFpOWpqY24wNXBwM3hubmN4ZTZhbnl2In0.EiLyOkFyugaAaqho1NVYTg</string>
 </resources>
