@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-@Entity(tableName = "weather", indices = {@Index(value = {"date"}, unique = true)})
+@Entity(tableName = "weather")
 public class Weather {
 
     @PrimaryKey(autoGenerate = true)
@@ -21,11 +21,11 @@ public class Weather {
 
     @SerializedName("tMin")
     @Expose
-    private String tMin;
+    private String min;
 
     @SerializedName("tMax")
     @Expose
-    private String tMax;
+    private String max;
 
     @SerializedName("predWindDir")
     @Expose
@@ -51,11 +51,11 @@ public class Weather {
     @Expose
     private String latitude;
 
-    @Ignore
-    public Weather(String precipitaProb, String tMin, String tMax, String predWindDir, int idWeatherType, int classWindSpeed, String longitude, String forecastDate, String latitude) {
+    public Weather(int id, String precipitaProb, String min, String max, String predWindDir, int idWeatherType, int classWindSpeed, String longitude, String forecastDate, String latitude) {
+        this.id = id;
         this.precipitaProb = precipitaProb;
-        this.tMin = tMin;
-        this.tMax = tMax;
+        this.min = min;
+        this.max = max;
         this.predWindDir = predWindDir;
         this.idWeatherType = idWeatherType;
         this.classWindSpeed = classWindSpeed;
@@ -64,16 +64,43 @@ public class Weather {
         this.latitude = latitude;
     }
 
-    public Weather(int id, String precipitaProb, String tMin, String tMax, String predWindDir, int idWeatherType, int classWindSpeed, String longitude, String forecastDate, String latitude) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public void setPrecipitaProb(String precipitaProb) {
         this.precipitaProb = precipitaProb;
-        this.tMin = tMin;
-        this.tMax = tMax;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
+    }
+
+    public void setPredWindDir(String predWindDir) {
         this.predWindDir = predWindDir;
+    }
+
+    public void setIdWeatherType(int idWeatherType) {
         this.idWeatherType = idWeatherType;
+    }
+
+    public void setClassWindSpeed(int classWindSpeed) {
         this.classWindSpeed = classWindSpeed;
+    }
+
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public void setForecastDate(String forecastDate) {
         this.forecastDate = forecastDate;
+    }
+
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
@@ -85,12 +112,12 @@ public class Weather {
         return precipitaProb;
     }
 
-    public String gettMin() {
-        return tMin;
+    public String getMin() {
+        return min;
     }
 
-    public String gettMax() {
-        return tMax;
+    public String getMax() {
+        return max;
     }
 
     public String getPredWindDir() {

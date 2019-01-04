@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-    android:id="@+id/instructions"
+    android:id="@+id/paginaInicial"
     android:title="Página Inicial" />
     <item
-        android:id="@+id/hotels"
-        android:title="MapView" />
+        android:id="@+id/mapView"
+        android:title="Mapa" />
 
 </menu>

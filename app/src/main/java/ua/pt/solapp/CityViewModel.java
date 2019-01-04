@@ -4,8 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -32,22 +30,11 @@ public class CityViewModel extends AndroidViewModel {
 
     LiveData<List<CityEntry>> getAllCities() {
         allCities = db.cityDao().gelAllCities();
-        mCityEntryLive.addSource(allCities, new Observer<List<CityEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<CityEntry> cityEntries) {
-                if (cityEntries == null || cityEntries.isEmpty()){
-                    // Fetch data from API
-                }else{
-                    mCityEntryLive.removeSource(allCities);
-                    mCityEntryLive.setValue(cityEntries);
-                }
-            }
-        });
         return mCityEntryLive;
     }
 
     LiveData<Integer> getGlobalIdLocal(String local) {
-        globalIdLocal = mRepository.getGlobalIdLocal(local);
+        globalIdLocal = db.cityDao().getGlobalIdLocal(local);
         return globalIdLocal;
     }
 

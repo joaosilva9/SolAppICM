@@ -2,11 +2,12 @@ package ua.pt.solapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private static ApiService apiService;
     private int code = 200;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         apiService = retrofit.create(ApiService.class);
-        final CityViewModel cityViewModel = ViewModelProviders.of(this).get(CityViewModel.class);
+        MViewModel mViewModel = ViewModelProviders.of(this).get(MViewModel.class);
 
         Spinner spinner = findViewById(R.id.spinner);
         final Spinner spinner2 = findViewById(R.id.spinner2);
-        callRemoteCityAndCreateSimpleCityEntryObjects(cityViewModel, spinner, this);
+        callRemoteCityAndCreateSimpleCityEntryObjects(mViewModel, spinner, this);
         /**cityViewModel.getAllCities().observe(this, new Observer<List<CityEntry>>() {
             @Override
             public void onChanged(@Nullable List<CityEntry> cityEntries) {
@@ -75,13 +74,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
-                //LiveData<Integer> ok = db.cityDao().getGlobalIdLocal(item);
-                //idLocal = ok.getValue();
-                //Log.w("TAG", ok.getValue().toString() + "");
-                //String a = item + idLocal;
                 int idLocal = globalIds.get(i);
                 setGlobalId(idLocal);
-                callRemoteWeatherAndCreateSimpleWeatherEntryObjects(cityViewModel, idLocal, MainActivity.this, spinner2);
+                callRemoteWeatherAndCreateSimpleWeatherEntryObjects(mViewModel, idLocal, MainActivity.this, spinner2);
                 //Toast.makeText(MainActivity.this, idLocal+"", Toast.LENGTH_SHORT).show();
             }
 
@@ -102,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
                     TextView textView10 = findViewById(R.id.textView10);
 
                     try {
-                        textView8.setText(entries.get(i).gettMin() + " ºC");
+                        textView8.setText(entries.get(i).getMin() + " ºC");
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
 
                     try {
-                        textView9.setText(entries.get(i).gettMax() + " ºC");
+                        textView9.setText(entries.get(i).getMax() + " ºC");
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
@@ -139,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**mViewModel.getAllCities().observe(this, cityEntries -> {
+            if (cityEntries!= null){
+                Log.w("WARNING", cityEntries.get(0).getLocal());
+            }
+        });**/
+
     }
 
     @Override
@@ -148,12 +149,33 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.paginaInicial:
+                if (!this.toString().contains(MapActivity.class.getName())){
+                    Intent intent = new Intent(this, MapActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.mapView:
+                if (!this.toString().contains(MapActivity.class.getName())){
+                    Intent intent = new Intent(this, MapActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void refreshApp(AppCompatActivity appCompatActivity){
         appCompatActivity.recreate();
         Toast.makeText(appCompatActivity, "Refresh feito", Toast.LENGTH_SHORT).show();
     }
 
-    private void callRemoteWeatherAndCreateSimpleWeatherEntryObjects(final CityViewModel cityViewModel, final int idLocal,
+    private void callRemoteWeatherAndCreateSimpleWeatherEntryObjects(final MViewModel mViewModel, final int idLocal,
                                                                      final Context context, final Spinner spinner){
         Call<WeatherInfo> weatherInfoCall = apiService.getWeather(idLocal);
         weatherInfoCall.enqueue(new Callback<WeatherInfo>() {
@@ -322,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void callRemoteCityAndCreateSimpleCityEntryObjects(final CityViewModel cityViewModel,final Spinner spinner, final Context context){
+    private void callRemoteCityAndCreateSimpleCityEntryObjects(final MViewModel mViewModel,final Spinner spinner, final Context context){
         Call<DistrictInfo> ok = apiService.getDistrict();
         ok.enqueue(new Callback<DistrictInfo>() {
             @Override
@@ -335,10 +357,11 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i<cityEntries.size(); i++){
                     locals.add(cityEntries.get(i).getLocal());
                     ids.add(cityEntries.get(i).getGlobalIdLocal());
-                    if (cityViewModel.getAllCities().getValue() != null) {
-                        cityViewModel.insert(cityEntries.get(i));
-                    }
+                    mViewModel.insertCities();
+
                 }
+
+
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, locals);
                 spinner.setAdapter(adapter);
                 setGlobalIds(ids);

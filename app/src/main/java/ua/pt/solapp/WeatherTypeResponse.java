@@ -2,6 +2,8 @@ package ua.pt.solapp;
 
 import android.support.annotation.NonNull;
 
+import ua.pt.solapp.WeatherTypeEntry;
+
 class WeatherTypeResponse {
 
     @NonNull
