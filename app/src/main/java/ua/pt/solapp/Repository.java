@@ -117,27 +117,27 @@ public class Repository {
 
     public void deleteWeathers(){
 
-            List<Weather> weathers = weatherDao.gelAllWeathers().getValue();
-            String DATE_FORMAT_PATTERN1 = "yyyy-MM-dd";
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = null;
+        List<Weather> weathers = weatherDao.gelAllWeathers().getValue();
+        String DATE_FORMAT_PATTERN1 = "yyyy-MM-dd";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = new SimpleDateFormat(DATE_FORMAT_PATTERN1).parse(df.format(new Date()));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        for (int i = 0; i<weathers.size(); i++){
+            Weather weather = weathers.get(i);
+            Date date1 = null;
             try {
-                date = new SimpleDateFormat(DATE_FORMAT_PATTERN1).parse(df.format(new Date()));
+                date1 = new SimpleDateFormat(DATE_FORMAT_PATTERN1).parse(weather.getForecastDate());
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            for (int i = 0; i<weathers.size(); i++){
-                Weather weather = weathers.get(i);
-                Date date1 = null;
-                try {
-                     date1 = new SimpleDateFormat(DATE_FORMAT_PATTERN1).parse(weather.getForecastDate());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (date1.before(date)) {
-                    executor.execute(() -> weatherDao.delete(weather));
-                }
+            if (date1.before(date)) {
+                executor.execute(() -> weatherDao.delete(weather));
+            }
         }
     }
 }

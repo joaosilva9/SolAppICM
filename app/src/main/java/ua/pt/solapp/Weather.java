@@ -51,6 +51,8 @@ public class Weather {
     @Expose
     private String latitude;
 
+    private int globalIdLocal;
+
     public Weather(int id, String precipitaProb, String min, String max, String predWindDir, int idWeatherType, int classWindSpeed, String longitude, String forecastDate, String latitude) {
         this.id = id;
         this.precipitaProb = precipitaProb;
@@ -62,6 +64,14 @@ public class Weather {
         this.longitude = longitude;
         this.forecastDate = forecastDate;
         this.latitude = latitude;
+    }
+
+    public int getGlobalIdLocal() {
+        return globalIdLocal;
+    }
+
+    public void setGlobalIdLocal(int globalIdLocal) {
+        this.globalIdLocal = globalIdLocal;
     }
 
     public void setId(int id) {

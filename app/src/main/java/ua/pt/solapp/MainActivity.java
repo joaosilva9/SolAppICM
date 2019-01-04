@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 
 import okhttp3.Cache;
@@ -142,6 +141,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    /**@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.paginaInicial:
+                return true;
+            case R.id.second:
+                Intent intent = new Intent(this, SecondActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }**/
 
     public void refreshApp(AppCompatActivity appCompatActivity){
         appCompatActivity.recreate();

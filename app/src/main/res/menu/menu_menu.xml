@@ -6,7 +6,7 @@
     android:id="@+id/paginaInicial"
     android:title="Página Inicial" />
     <item
-        android:id="@+id/mapView"
-        android:title="Mapa" />
+        android:id="@+id/second"
+        android:title="Second" />
 
 </menu>
