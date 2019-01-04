@@ -142,28 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.paginaInicial:
-                return true;
-            case R.id.mapView:
-                Intent intent = new Intent(this, MapActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void refreshApp(AppCompatActivity appCompatActivity){
         appCompatActivity.recreate();
         Toast.makeText(appCompatActivity, "Refresh feito", Toast.LENGTH_SHORT).show();

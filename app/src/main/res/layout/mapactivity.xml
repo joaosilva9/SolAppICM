@@ -4,14 +4,4 @@
     android:layout_height="match_parent"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto">
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        mapbox:layout_constraintBottom_toBottomOf="parent"
-        mapbox:layout_constraintEnd_toEndOf="parent"
-        mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:layout_constraintTop_toTopOf="parent"
-        mapbox:mapbox_cameraZoom="5" />
-
 </android.support.constraint.ConstraintLayout>
