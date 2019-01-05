@@ -40,7 +40,7 @@ Para consumo da API foi utilizado GSON e Retrofit, tendo sido utilizada a cache 
 
 ## Limitações
 
-Não consegui integrar a parte do RoomDatabase no projeto.
+Não consegui integrar a componente Model no projeto.
 
 
 ## Cuidados particulares
