@@ -1,8 +1,6 @@
 # SolAppICM
 
-#### Link para download da app
-
-[SolApp apk](https://drive.google.com/drive/folders/1azsGA7TSu2nWZj0gYyPiBjDrippF-7BG?usp=sharing)
+#### Link para download da app [SolApp apk](https://drive.google.com/drive/folders/1azsGA7TSu2nWZj0gYyPiBjDrippF-7BG?usp=sharing)
 
 ## Funcionalidade implementada
 
@@ -12,6 +10,7 @@ A SolApp é uma aplicação para dispositivos Android que através da API do IPM
 
 ## Arquitetura
 ![alt text](https://github.com/joaosilva9/SolAppICM/blob/master/architecture.png)
+
 
 ### Activity/Fragment:
 - MainActivity
