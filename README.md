@@ -41,6 +41,5 @@ Não consegui integrar a parte do RoomDatabase no projeto.
 ## Cuidados particulares
 
 Não é preciso cuidados particulares a correr a aplicação a não ser uma ligação à internet pelo menos na primeira vez que se correr a aplicação.
-
 Tem um Target Mínimo de 21 e foi testado até o api 27.
-Tem de ter ligação à internet.
+
