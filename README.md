@@ -26,15 +26,15 @@ A SolApp é uma aplicação para dispositivos Android que através da API do IPM
 - WeatherDao (interface que define todos os métodos de interação com a base de dados)
 - CityDao (interface que define todos os métodos de interação com a base de dados)
 - CityEntry (objeto associado a tabela da db)
-- DistrictInfo (objeto associado a tabela da db)
+- DistrictInfo (objeto usado para obter informações para o objeto CityEntry)
 - Weather (objeto associado a tabela da db)
-- WeatherInfo (objeto associado a tabela da db)
-- WeatherTypeEntri (objeto associado a tabela da db)
+- WeatherInfo (objeto usado para obter informações para o objeto Weather)
+- WeatherTypeEntry (objeto associado a tabela da db)
 
 ### Remote Data Source:
-- Api Service (definição dos caminhos da API)
+- ApiService (definição dos caminhos da API)
 
-Para consumo da API foi utilizado GSON e Retrofit. Para manipulação de tarefas que devem ser executadas fora da MainThread foi utilizado Executor.
+Para consumo da API foi utilizado GSON e Retrofit, tendo sido utilizada a cache do retrofit para guardar alguns dados. Para manipulação de tarefas que devem ser executadas fora da MainThread foi utilizado Executor.
 
 ## Limitações
 
