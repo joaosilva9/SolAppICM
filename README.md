@@ -45,6 +45,6 @@ Não consegui integrar a componente Model no projeto.
 
 ## Cuidados particulares
 
-Não é preciso cuidados particulares a correr a aplicação a não ser uma ligação à internet pelo menos na primeira vez que se correr a aplicação.
-Tem um Target Mínimo de 21 e foi testado até o api 27.
+Convém ter a internet ligada pelo menos uma vez para obetenção dos dados à api. Offline apenas mostra informação da cache do Retrofit.
+Tem um Target Mínimo de 21 e foi testado até ao 27.
 
