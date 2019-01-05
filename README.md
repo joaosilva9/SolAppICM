@@ -30,6 +30,7 @@ A SolApp é uma aplicação para dispositivos Android que através da API do IPM
 - Weather (objeto associado a tabela da db)
 - WeatherInfo (objeto usado para obter informações para o objeto Weather)
 - WeatherTypeEntry (objeto associado a tabela da db)
+- TypeDataWeather (objeto usado para obter informações para o objeto WeatherTypeEntry)
 
 ### Remote Data Source:
 - ApiService (definição dos caminhos da API)
